@@ -1,6 +1,8 @@
 #include "bullet.h"
 
 const float BULLET_SPEED = 500.0f;
+const int BULLET_SIZE = 5;
+const int BULLET_TTL = 4;
 
 Bullet::Bullet(Vector2 player_pos, Vector2 mouse_pos) {
     gameObjects.push_back(this);
@@ -15,7 +17,7 @@ void Bullet::update() {
     _position.x += _direction.x * _speed * GetFrameTime();
     _position.y += _direction.y * _speed * GetFrameTime();
     // Destroy the bullet
-    if (_timeAlive < 5) {
+    if (_timeAlive < BULLET_TTL) {
         _timeAlive += GetFrameTime();
     }
     else {
@@ -25,7 +27,7 @@ void Bullet::update() {
 }
 
 void Bullet::render() {
-    DrawCircleV(_position, 5, GREEN);
+    DrawCircleV(_position, BULLET_SIZE, GREEN);
 }
 
 void Bullet::destroy() {

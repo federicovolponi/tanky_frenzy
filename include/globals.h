@@ -2,6 +2,7 @@
 #define GLOBALS_H
 
 #include "gameobject.h"
+#include "raylib.h"
 #include <list>
 
 //All gameobjects in the game

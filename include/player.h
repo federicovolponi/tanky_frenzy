@@ -1,16 +1,16 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "gameobject.h"
 #include "globals.h"
 #include "bullet.h"
-#include "raylib.h"
+#include "weapon.h"
+#include <memory>
+#include <raylib.h>
 
-extern const Vector2 SIZE;
-extern const int SPAWN_ROTATION;
+extern const Vector2 PLAYER_SIZE;
+extern const int PLAYER_SPAWN_ROT;
 extern const float PLAYER_SPEED;
 extern const int PLAYER_ROT_SPEED;
-extern const float DELAY_SHOTS;
 
 class Player : public GameObject {
     public:
@@ -22,17 +22,13 @@ class Player : public GameObject {
     private:
         // Player movement
         Vector2 _position;
-        Rectangle _rectangle;
         int _rotation;
         float _speed;
         int _rot_speed;
-        // Shooting logic
-        // NOTE: maybe to handle somewhere else
-        float lastShot;
-        float timeBetweenShots;
+
+        std::unique_ptr<Weapon> weapon;
 
         void movement();
-        void shooting();
 };
 
 #endif

@@ -1,5 +1,4 @@
 #include "player.h"
-#include <raylib.h>
 #include <string>
 const Vector2 PLAYER_SIZE = {40, 50};
 const int PLAYER_SPAWN_ROT = 90;
@@ -82,8 +81,8 @@ void Player::movement() {
     // Combined movement
     if (IsKeyDown(KEY_W) && IsKeyDown(KEY_D)) {
         if (_rotation == ANGLES.ne) {
-            _position.x += _speed;
-            _position.y -= _speed;
+            _position.x += _speed * sqrt(2) / 2;
+            _position.y -= _speed * sqrt(2) / 2;
         }
         else if (_rotation < ANGLES.ne && _rotation >= ANGLES.so) {
             _rotation += _rot_speed;
@@ -94,8 +93,8 @@ void Player::movement() {
     }
     if (IsKeyDown(KEY_W) && IsKeyDown(KEY_A)) {
         if (_rotation == ANGLES.no) {
-            _position.x -= _speed;
-            _position.y -= _speed;
+            _position.x -= _speed * sqrt(2) / 2;
+            _position.y -= _speed * sqrt(2) / 2;
         }
         else if (_rotation > ANGLES.no && _rotation <= ANGLES.se) {
             _rotation -= _rot_speed;
@@ -106,8 +105,8 @@ void Player::movement() {
     }
     if (IsKeyDown(KEY_S) && IsKeyDown(KEY_A)) {
         if (_rotation == ANGLES.so) {
-            _position.x -= _speed;
-            _position.y += _speed;
+            _position.x -= _speed * sqrt(2) / 2;
+            _position.y += _speed * sqrt(2) / 2;
         }
         else if (_rotation > ANGLES.so && _rotation <= ANGLES.ne) {
             _rotation -= _rot_speed;
@@ -118,8 +117,8 @@ void Player::movement() {
     }
     if (IsKeyDown(KEY_S) && IsKeyDown(KEY_D)) {
         if (_rotation == ANGLES.se) {
-            _position.x += _speed;
-            _position.y += _speed;
+            _position.x += _speed * sqrt(2) / 2;
+            _position.y += _speed * sqrt(2) / 2;
         }
         else if (_rotation >= ANGLES.no && _rotation < ANGLES.se) {
             _rotation += _rot_speed;

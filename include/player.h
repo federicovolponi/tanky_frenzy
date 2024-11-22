@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "globals.h"
+#include <cmath>
 #include "bullet.h"
 #include "weapon.h"
 #include <memory>

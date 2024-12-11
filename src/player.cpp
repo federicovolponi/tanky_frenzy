@@ -29,6 +29,7 @@ Player::Player(Vector2 position) {
 
 void Player::update() {
     movement();
+    weapon->update();
 }
 
 void Player::movement() {
@@ -136,6 +137,7 @@ void Player::render() {
     Vector2 pivot = {rectangle.width / 2, rectangle.height / 2};
     DrawRectanglePro(rectangle, pivot, _rotation, RED);
     DrawCircleV({_position.x, _position.y}, 5, YELLOW); // Draw center for debugging
+    weapon->render();
 }
 
 void Player::destroy() {

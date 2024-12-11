@@ -7,7 +7,6 @@ const float WEAPON_SPAWN_ROT = 90.0f;
 const float DELAY_SHOTS = 0.1f;
 
 Weapon::Weapon(Vector2 *player_pos) {
-    gameObjects.push_back(this);
     _position = player_pos;
     _rotation = WEAPON_SPAWN_ROT;
     _hypotenuse = sqrt(pow(WEAPON_SIZE.x, 2) + pow(WEAPON_SIZE.y, 2));

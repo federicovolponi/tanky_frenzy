@@ -23,13 +23,17 @@ class Player : public GameObject {
     private:
         // Player movement
         Vector2 _position;
-        int _rotation;
+        float _rotation;
+        float _targetRotation;
         float _speed;
         int _rot_speed;
-
+        
+        // Weapon is totally managed by player instance
         std::unique_ptr<Weapon> weapon;
 
         void movement();
+        void moveInDirection(Vector2 moveDirection);
+        void rotate();
 };
 
 #endif

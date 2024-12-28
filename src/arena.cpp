@@ -10,8 +10,8 @@ Arena::Arena() {
     _shape = {0, 0, SCREENWIDTH, SCREENHEIGHT};
 }
 
+// Allows only one instance of the arena class
 Arena* Arena::Instance() {
-    /* Allows only one instance of the arena class */
     if (_instance == nullptr) {
         _instance = new Arena;
     }

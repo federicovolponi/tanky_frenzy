@@ -1,8 +1,19 @@
 #include "bullet.h"
+#include <raylib.h>
 
 const float BULLET_SPEED = 500.0f;
 const int BULLET_SIZE = 5;
 const int BULLET_TTL = 4;
+
+Vector2 getNormDirection(Vector2 start, Vector2 end) {
+    Vector2 direction = { end.x - start.x, end.y - start.y };
+    float length = sqrt(direction.x * direction.x + direction.y * direction.y);
+    if (length != 0) {
+        direction.x /= length;
+        direction.y /= length;
+    }
+    return direction;
+}
 
 Bullet::Bullet(Vector2 player_pos, Vector2 mouse_pos) {
     gameObjects.push_back(this);
@@ -17,7 +28,7 @@ void Bullet::update() {
     _position.x += _direction.x * _speed * GetFrameTime();
     _position.y += _direction.y * _speed * GetFrameTime();
     // Destroy the bullet
-    if (_timeAlive < BULLET_TTL) {
+    if (_timeAlive < BULLET_TTL && !checkArenaCollision()) {
         _timeAlive += GetFrameTime();
     }
     else {
@@ -34,14 +45,13 @@ void Bullet::destroy() {
     delete this;
 }
 
-Vector2 Bullet::getNormDirection(Vector2 start, Vector2 end) {
-    Vector2 direction = { end.x - start.x, end.y - start.y };
-    float length = sqrt(direction.x * direction.x + direction.y * direction.y);
-    if (length != 0) {
-        direction.x /= length;
-        direction.y /= length;
+bool Bullet::checkArenaCollision() {
+    // Check if the bullet collides with the arena
+    Arena* arenaPtr = Arena::Instance();
+    if (!CheckCollisionCircleRec(_position, BULLET_SIZE, arenaPtr->getInternalBorder())) {
+        return true;
     }
-    return direction;
+    return false;
 }
 
 Bullet::~Bullet() {}

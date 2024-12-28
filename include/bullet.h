@@ -2,6 +2,7 @@
 #define BULLET_H
 
 #include "globals.h"
+#include "arena.h"
 #include <algorithm>
 #include <math.h>
 
@@ -22,7 +23,7 @@ class Bullet : public GameObject {
         float _speed;
         float _timeAlive;
 
-        Vector2 getNormDirection(Vector2 start, Vector2 end);
+        bool checkArenaCollision();
 };
 
 #endif

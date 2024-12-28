@@ -5,8 +5,8 @@
 
 extern const float ARENA_WIDTH;
 
+// Singleton class to manage the game arena
 class Arena : public GameObject {
-    /* Singleton class to manage the game arena */
     public:
         static Arena* Instance();
         virtual void update() override;

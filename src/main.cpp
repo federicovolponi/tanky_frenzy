@@ -1,15 +1,15 @@
 #include "player.h"
 #include "globals.h"
+#include "arena.h"
 
 int main(void)
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth = 1800;
-    const int screenHeight = 950;
-    Vector2 playerPos = { (float)screenWidth/2, (float)screenHeight/2 };
+    Vector2 playerPos = { SCREENWIDTH/2, SCREENHEIGHT/2 };
     Player player(playerPos);
-    InitWindow(screenWidth, screenHeight, "Tanky Frenzy");
+    Arena* arenaPtr = Arena::Instance();
+    InitWindow(SCREENWIDTH, SCREENHEIGHT, "Tanky Frenzy");
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
 

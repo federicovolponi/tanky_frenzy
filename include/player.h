@@ -5,6 +5,7 @@
 #include <cmath>
 #include "bullet.h"
 #include "weapon.h"
+#include "arena.h"
 #include <memory>
 #include <raylib.h>
 
@@ -24,6 +25,7 @@ class Player : public GameObject {
         // Player movement
         Vector2 _position;
         float _rotation;
+        Vector2 _size;
         float _targetRotation;
         float _speed;
         int _rot_speed;
@@ -34,6 +36,8 @@ class Player : public GameObject {
         void movement();
         void moveInDirection(Vector2 moveDirection);
         void rotate();
+        
+        bool checkArenaCollision(Rectangle playerHitBox);
 };
 
 #endif

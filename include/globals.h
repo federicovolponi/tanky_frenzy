@@ -8,6 +8,9 @@
 extern float SCREENWIDTH;
 extern float SCREENHEIGHT;
 
+extern Vector2 ARENA_POSITION;
+extern Vector2 ARENA_DIMENSIONS;
+
 //All gameobjects in the game
 extern std::list<GameObject*> gameObjects;
 

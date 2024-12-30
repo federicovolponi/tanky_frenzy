@@ -11,6 +11,7 @@ Player::Player(Vector2 position) {
     
     // Initialize player movement variables
     _position = position;
+    _size = PLAYER_SIZE;
     _speed = PLAYER_SPEED;
     _rot_speed = PLAYER_ROT_SPEED;
     _rotation = PLAYER_SPAWN_ROT;
@@ -22,6 +23,9 @@ Player::Player(Vector2 position) {
 
 void Player::update() {
     movement();
+    rotate();
+    Arena* arenaPtr = Arena::Instance();
+    arenaPtr->handlePlayerCollision(_position, _size);
     weapon->update();
 }
 
@@ -46,15 +50,16 @@ Vector2 determineMoveDirection() {
 }
 
 void Player::moveInDirection(Vector2 moveDirection) {
+    float length;
+    float deltaX, deltaY;
     // Normalize the direction vector
-    float length = sqrtf(moveDirection.x * moveDirection.x + moveDirection.y * moveDirection.y);
+    length = sqrtf(moveDirection.x * moveDirection.x + moveDirection.y * moveDirection.y);
     moveDirection.x /= length;
     moveDirection.y /= length;
 
     // Calculate target rotation from the direction vector
     _targetRotation = Vector2Angle(moveDirection);
 
-    // Move the player in the direction
     _position.x += moveDirection.x * PLAYER_SPEED * GetFrameTime();
     _position.y += moveDirection.y * PLAYER_SPEED * GetFrameTime();
 }
@@ -76,13 +81,16 @@ void Player::movement() {
     if (moveDirection.x != 0 || moveDirection.y != 0) {
         moveInDirection(moveDirection);
     }
-    rotate();
 } 
 
+bool Player::checkArenaCollision(Rectangle playerHitBox) {
+    return false;
+}
+
 void Player::render() {
-    Rectangle rectangle = {_position.x, _position.y, PLAYER_SIZE.x, PLAYER_SIZE.y};
-    Vector2 pivot = {rectangle.width / 2, rectangle.height / 2};
-    DrawRectanglePro(rectangle, pivot, _rotation, RED);
+    Rectangle playerDraw = {_position.x, _position.y, _size.x, _size.y};
+    Vector2 pivot = {playerDraw.width / 2, playerDraw.height / 2};
+    DrawRectanglePro(playerDraw, pivot, _rotation, RED);
     DrawCircleV({_position.x, _position.y}, 5, YELLOW); // Draw center for debugging
     weapon->render();
 }

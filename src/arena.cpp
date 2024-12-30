@@ -1,13 +1,13 @@
 #include "arena.h"
 #include <raylib.h>
 
-const float ARENA_WIDTH = 15.0f;
+const float ARENA_WIDTH = 1.0f;
 
 Arena* Arena::_instance = nullptr;
 
 Arena::Arena() {
     gameObjects.push_back(this);
-    _shape = {0, 0, SCREENWIDTH, SCREENHEIGHT};
+    _boundary = {ARENA_POSITION.x, ARENA_POSITION.y, ARENA_DIMENSIONS.x, ARENA_DIMENSIONS.y};
 }
 
 // Allows only one instance of the arena class
@@ -22,12 +22,30 @@ void Arena::update() {
 
 }
 
+//TODO: player collision does not take into account rotations
+void Arena::handlePlayerCollision(Vector2& playerPosition, Vector2 playerSize) {
+    float playerLength = playerSize.x / 2;
+    if (playerPosition.x - playerLength < _boundary.x) playerPosition.x = _boundary.x + playerLength;
+    if (playerPosition.y - playerLength < _boundary.y) playerPosition.y = _boundary.y + playerLength;
+    if (playerPosition.x + playerLength > _boundary.x + _boundary.width)
+        playerPosition.x = _boundary.x + _boundary.width - playerLength;
+    if (playerPosition.y + playerLength > _boundary.y + _boundary.height)
+        playerPosition.y = _boundary.y + _boundary.height - playerLength ;
+}
+
+bool Arena::checkBulletCollision(Vector2 bulletPosition, int bulletSize) {
+    if (!CheckCollisionCircleRec(bulletPosition, bulletSize, getInternalBorder())) {
+        return true;
+    }
+    return false;
+}
+
 void Arena::render() {
-    DrawRectangleLinesEx(_shape, ARENA_WIDTH, GRAY);
+    DrawRectangleLinesEx(_boundary, ARENA_WIDTH, GRAY);
 }
 
 Rectangle Arena::getInternalBorder() const {
-    return {_shape.x, _shape.y, _shape.width - ARENA_WIDTH, _shape.height - ARENA_WIDTH};
+    return {_boundary.x, _boundary.y, _boundary.width - ARENA_WIDTH, _boundary.height - ARENA_WIDTH};
 }
 
 void Arena::destroy() {

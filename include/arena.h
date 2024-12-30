@@ -2,6 +2,7 @@
 #define ARENA_H
 
 #include "globals.h"
+#include <raylib.h>
 
 extern const float ARENA_WIDTH;
 
@@ -12,13 +13,14 @@ class Arena : public GameObject {
         virtual void update() override;
         virtual void render() override;
         virtual void destroy() override;
-        Rectangle getInternalBorder() const;
+        void handlePlayerCollision(Vector2& playerPosition, Vector2 playerSize);
+        bool checkBulletCollision(Vector2 bulletPosition, int bulletSize);
         ~Arena();
-    protected:
-        Arena();
     private:
+        Arena();
         static Arena* _instance;
-        Rectangle _shape;
+        Rectangle _boundary;
+        Rectangle getInternalBorder() const;
 };
 
 #endif // !ARENA_H

@@ -45,13 +45,10 @@ void Bullet::destroy() {
     delete this;
 }
 
+// Check if the bullet collides with the arena
 bool Bullet::checkArenaCollision() {
-    // Check if the bullet collides with the arena
     Arena* arenaPtr = Arena::Instance();
-    if (!CheckCollisionCircleRec(_position, BULLET_SIZE, arenaPtr->getInternalBorder())) {
-        return true;
-    }
-    return false;
+    return arenaPtr->checkBulletCollision(_position, BULLET_SIZE);
 }
 
 Bullet::~Bullet() {}

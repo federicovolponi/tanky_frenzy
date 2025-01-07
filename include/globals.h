@@ -2,6 +2,7 @@
 #define GLOBALS_H
 
 #include "gameobject.h"
+#include "logger.h"
 #include "raylib.h"
 #include <list>
 

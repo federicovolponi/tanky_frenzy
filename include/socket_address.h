@@ -1,6 +1,8 @@
 #ifndef SOCKETADDRESS_H
 #define SOCKETADDRESS_H
 
+#include "globals.h"
+
 #include <netinet/in.h>
 #include <memory>
 

@@ -26,7 +26,7 @@ SocketAddressPtr SocketAddressFactory::CreateIPv4FromString(const std::string &i
 	int error = getaddrinfo( host.c_str(), service.c_str(), &hint, &result );
 	if( error != 0 && result != nullptr )
 	{
-        //TODO: add logging
+        LOGGER::error(strerror(errno));
 		return nullptr;
 	}
 	
@@ -37,6 +37,7 @@ SocketAddressPtr SocketAddressFactory::CreateIPv4FromString(const std::string &i
 	
 	if( !result->ai_addr )
 	{
+        LOGGER::error("No valid sockaddr found.");
 		return nullptr;
 	}
 	

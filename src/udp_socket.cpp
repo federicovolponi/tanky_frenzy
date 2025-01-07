@@ -1,6 +1,8 @@
 #include "udp_socket.h"
+
 #include <unistd.h>
 #include <fcntl.h>
+#include <cstring>
 
 UDPSocket::UDPSocket(SOCKET inSocket) {
     mSocket = inSocket;
@@ -11,7 +13,7 @@ int UDPSocket::Bind( const SocketAddress& inBindAddress )
 	int error = bind( mSocket, &inBindAddress.mSockAddr, inBindAddress.GetSize() );
 	if( error != 0 )
 	{
-        // TODO: error logging
+        LOGGER::error(strerror(errno));
 		return -1;
 	}
 	
@@ -26,7 +28,7 @@ int UDPSocket::SendTo( const void* inToSend, int inLength, const SocketAddress& 
 							   0, &inToAddress.mSockAddr, inToAddress.GetSize() );
 	if( byteSentCount <= 0 )
 	{
-        //TODO: error logging
+        LOGGER::error(strerror(errno));
 		return -1;
 	}
 	else
@@ -43,12 +45,12 @@ int UDPSocket::ReceiveFrom( void* inToReceive, int inMaxLength, SocketAddress& o
 								 static_cast< char* >( inToReceive ),
 								 inMaxLength,
 								 0, &outFromAddress.mSockAddr, &fromLength );
-	if( readByteCount >= 0 )
+	if( readByteCount < 0 )
 	{
-		return readByteCount;
+        LOGGER::error(strerror(errno));
+        return -1;
 	}
-    //TODO: error logging
-    return -1;
+	return readByteCount;
 }
 
 UDPSocket::~UDPSocket()
@@ -65,11 +67,8 @@ int UDPSocket::SetNonBlockingMode( bool inShouldBeNonBlocking )
 	
 	if( result == -1 )
 	{
-        //TODO: error logging
+        LOGGER::error(strerror(errno));
 		return -1;
 	}
-	else
-	{
-		return 0;
-	}
+    return 0;
 }

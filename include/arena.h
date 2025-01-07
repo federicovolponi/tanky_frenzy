@@ -2,9 +2,6 @@
 #define ARENA_H
 
 #include "globals.h"
-#include <raylib.h>
-
-extern const float ARENA_WIDTH;
 
 // Singleton class to manage the game arena
 class Arena : public GameObject {

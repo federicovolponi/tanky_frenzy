@@ -1,10 +1,7 @@
 #include "player.h"
-#include <raylib.h>
 
-const Vector2 PLAYER_SIZE = {50, 40};
-const int PLAYER_SPAWN_ROT = 0.0f;
-const float PLAYER_SPEED = 250.0f;
-const int PLAYER_ROT_SPEED = 300;
+#include "arena.h"
+#include <cmath>
 
 Player::Player(Vector2 position) {
     gameObjects.push_back(this);

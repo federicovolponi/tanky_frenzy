@@ -1,10 +1,7 @@
 #include "weapon.h"
-#include <cmath>
-#include <raylib.h>
 
-const Vector2 WEAPON_SIZE = {10, 40};
-const float WEAPON_SPAWN_ROT = 90.0f;
-const float DELAY_SHOTS = 0.1f;
+#include "bullet.h"
+#include <cmath>
 
 Weapon::Weapon(Vector2 *player_pos) {
     _position = player_pos;

@@ -2,14 +2,6 @@
 #define WEAPON_H
 
 #include "globals.h"
-#include "bullet.h"
-#include <cmath>
-#include <raylib.h>
-#include <math.h>
-
-extern const Vector2 WEAPON_SIZE;
-extern const float WEAPON_SPAWN_ROT;
-extern const float DELAY_SHOTS;
 
 class Weapon : public GameObject {
     public:

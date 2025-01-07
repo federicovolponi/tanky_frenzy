@@ -2,17 +2,8 @@
 #define PLAYER_H
 
 #include "globals.h"
-#include <cmath>
-#include "bullet.h"
 #include "weapon.h"
-#include "arena.h"
 #include <memory>
-#include <raylib.h>
-
-extern const Vector2 PLAYER_SIZE;
-extern const int PLAYER_SPAWN_ROT;
-extern const float PLAYER_SPEED;
-extern const int PLAYER_ROT_SPEED;
 
 class Player : public GameObject {
     public:

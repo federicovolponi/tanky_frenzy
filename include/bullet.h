@@ -2,13 +2,6 @@
 #define BULLET_H
 
 #include "globals.h"
-#include "arena.h"
-#include <algorithm>
-#include <math.h>
-
-extern const float BULLET_SPEED;
-extern const int BULLET_SIZE;
-extern const int BULLET_TTL;
 
 class Bullet : public GameObject {
     public:

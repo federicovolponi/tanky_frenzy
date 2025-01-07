@@ -1,9 +1,7 @@
 #include "bullet.h"
-#include <raylib.h>
 
-const float BULLET_SPEED = 500.0f;
-const int BULLET_SIZE = 5;
-const int BULLET_TTL = 4;
+#include <cmath>
+#include "arena.h"
 
 Vector2 getNormDirection(Vector2 start, Vector2 end) {
     Vector2 direction = { end.x - start.x, end.y - start.y };

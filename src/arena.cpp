@@ -1,7 +1,6 @@
 #include "arena.h"
 #include <raylib.h>
 
-const float ARENA_WIDTH = 1.0f;
 
 Arena* Arena::_instance = nullptr;
 

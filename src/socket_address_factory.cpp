@@ -4,6 +4,8 @@
 #include <netdb.h>
 #include <cstring>
 
+using std::runtime_error;
+
 SocketAddressPtr SocketAddressFactory::CreateIPv4FromString(const std::string &inString) {
     auto pos = inString.find_last_of( ':' );
     std::string host, service;
@@ -26,8 +28,7 @@ SocketAddressPtr SocketAddressFactory::CreateIPv4FromString(const std::string &i
 	int error = getaddrinfo( host.c_str(), service.c_str(), &hint, &result );
 	if( error != 0 && result != nullptr )
 	{
-        LOGGER::error(strerror(errno));
-		return nullptr;
+        throw runtime_error(strerror(errno));
 	}
 	
 	while( !result->ai_addr && result->ai_next )
@@ -37,8 +38,7 @@ SocketAddressPtr SocketAddressFactory::CreateIPv4FromString(const std::string &i
 	
 	if( !result->ai_addr )
 	{
-        LOGGER::error("No valid sockaddr found.");
-		return nullptr;
+        throw runtime_error(strerror(errno));
 	}
 	
 	auto toRet = std::make_shared< SocketAddress >( *result->ai_addr );

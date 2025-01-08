@@ -4,6 +4,8 @@
 #include <fcntl.h>
 #include <cstring>
 
+using std::runtime_error;
+
 UDPSocket::UDPSocket(SOCKET inSocket) {
     mSocket = inSocket;
 }
@@ -13,10 +15,8 @@ int UDPSocket::Bind( const SocketAddress& inBindAddress )
 	int error = bind( mSocket, &inBindAddress.mSockAddr, inBindAddress.GetSize() );
 	if( error != 0 )
 	{
-        LOGGER::error(strerror(errno));
-		return -1;
+        throw runtime_error(strerror(errno));
 	}
-	
 	return 0;
 }
 
@@ -67,6 +67,7 @@ int UDPSocket::SetNonBlockingMode( bool inShouldBeNonBlocking )
 	
 	if( result == -1 )
 	{
+        throw runtime_error(strerror(errno));
         LOGGER::error(strerror(errno));
 		return -1;
 	}

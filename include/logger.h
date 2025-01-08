@@ -1,10 +1,4 @@
-#include <iostream>
-
-enum PRIORITY {
-    INFO,
-    DEBUG,
-    ERROR
-};
+#include <string>
 
 class LOGGER {
     public:

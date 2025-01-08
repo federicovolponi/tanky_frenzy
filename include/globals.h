@@ -5,6 +5,8 @@
 #include "logger.h"
 #include "raylib.h"
 #include <list>
+#include <errno.h>
+#include <stdexcept>
 
 // Screen window dimensions
 extern const float SCREENWIDTH;
